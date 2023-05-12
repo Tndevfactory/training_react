@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// eslint-disable-next-line
+import Symbol_observable from "symbol-observable";
+
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import { IntlProvider } from "react-intl";
+
+import enFR from "antd/lib/locale/fr_FR";
+// i18n translted document
+import { locales } from "./i18n/locales";
+import arabic from "./i18n/languages/ar.json";
+import english from "./i18n/languages/en.json";
+import french from "./i18n/languages/fr.json";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
+  const messages = {
+    en: english,
+    fr: french,
+    ar: arabic,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <IntlProvider
+        messages={messages["fr"]}
+        locale={"fr"}
+        defaultLocale={locales.arabic}
+      >
+        <AppRouter />
+      </IntlProvider>
+    </Provider>
   );
 }
 
